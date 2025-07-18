@@ -77,10 +77,9 @@ class RegisterUser(Resource):
 class LoginUser(Resource):
     def post(self):
         data = request.get_json()
-        query= User.query.filter_by(password = data['password'])
-        user = db.session.execute(query)
+        user = User.query.filter_by(username = data['username']).first()
         access_token = create_access_token(identity=data.get("username"))
-        if user:
+        if user and check_password_hash(user.password,data.get('password')):
             return {
                 "message": "Login successful",
                 "access_token": access_token
@@ -115,12 +114,12 @@ class Admin(Resource):
         check_user = User.query.filter_by(username = identity).first()
 
         if check_user.role == 'admin':
-            #check if course exists
-            # check_course = Course.query.filter_by(course = data.get('course'))
-            # if check_course:
-            #     return {
-            #         "message": "course already exists"
-            #     }
+            # check if course exists
+            check_course = Course.query.filter_by(course = data.get('course')).first()
+            if check_course:
+                return {
+                    "message": "course already exists"
+                }
             new_course = Course(price= data.get('price'),course= data.get('course'))
             db.session.add(new_course)
             db.session.commit()
