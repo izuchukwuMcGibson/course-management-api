@@ -143,8 +143,7 @@ api.add_resource(ShowAll,'/all')
 api.add_resource(Admin,'/admin')
 
 
-
 if __name__ == '__main__':
     with app.app_context():
         upgrade()
-  app.run(debug=True)
+    app.run(debug=True)
