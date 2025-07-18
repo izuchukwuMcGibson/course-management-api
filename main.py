@@ -16,7 +16,7 @@ app = Flask(__name__)
 api = Api(app)
 jwt =JWTManager(app)
 db = SQLAlchemy()
-app.config['SQLALCHEMY_DATABASE_URI'] =  'postgresql://postgres:zmhqsLQymtAYubCvGhYCTvCIZMUrjPxB@postgres.railway.internal:5432/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] =  'postgresql://postgres:zmhqsLQymtAYubCvGhYCTvCIZMUrjPxB@shinkansen.proxy.rlwy.net:17087/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 app.config['JWT_SECRET_KEY'] = "mykey"
