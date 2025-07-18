@@ -12,7 +12,6 @@ from sqlalchemy import select
 from flask_migrate import Migrate ,upgrade
 
 
-
 app = Flask(__name__)
 api = Api(app)
 jwt =JWTManager(app)
@@ -117,11 +116,11 @@ class Admin(Resource):
 
         if check_user.role == 'admin':
             #check if course exists
-            check_course = Course.query.filter_by(course = data.get('course'))
-            if check_course:
-                return {
-                    "message": "course already exists"
-                }
+            # check_course = Course.query.filter_by(course = data.get('course'))
+            # if check_course:
+            #     return {
+            #         "message": "course already exists"
+            #     }
             new_course = Course(price= data.get('price'),course= data.get('course'))
             db.session.add(new_course)
             db.session.commit()
