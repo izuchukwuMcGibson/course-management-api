@@ -9,6 +9,7 @@ from pyexpat.errors import messages
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import select
+from flask_migrate import Migrate
 
 
 
@@ -19,13 +20,16 @@ db = SQLAlchemy()
 app.config['SQLALCHEMY_DATABASE_URI'] =  'postgresql://postgres:zmhqsLQymtAYubCvGhYCTvCIZMUrjPxB@shinkansen.proxy.rlwy.net:17087/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+
+migrate = Migrate(app, db)
+
 app.config['JWT_SECRET_KEY'] = "mykey"
 
 
 class User(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(80), unique= True,nullable = False)
-    password = db.Column(db.String(80),nullable = False)
+    password = db.Column(db.String(200),nullable = False)
     role = db.Column(db.String(80),nullable = False, default = 'user')
 
 class Course(db.Model):
