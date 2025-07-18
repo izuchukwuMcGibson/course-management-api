@@ -9,7 +9,7 @@ from pyexpat.errors import messages
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import select
-from flask_migrate import Migrate
+from flask_migrate import Migrate ,upgrade
 
 
 
@@ -20,6 +20,7 @@ db = SQLAlchemy()
 app.config['SQLALCHEMY_DATABASE_URI'] =  'postgresql://postgres:zmhqsLQymtAYubCvGhYCTvCIZMUrjPxB@shinkansen.proxy.rlwy.net:17087/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+
 
 migrate = Migrate(app, db)
 
@@ -144,4 +145,6 @@ api.add_resource(Admin,'/admin')
 
 
 if __name__ == '__main__':
+    with app.app_context():
+        upgrade()
   app.run(debug=True)
