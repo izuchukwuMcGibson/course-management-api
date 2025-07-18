@@ -40,10 +40,6 @@ class Course(db.Model):
 
 
 
-with app.app_context():
-    db.create_all()
-
-
 class RegisterUser(Resource):
     def post(self):
         execute_user = db.session.execute(select(User)).scalars().all()
