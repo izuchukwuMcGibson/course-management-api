@@ -10,15 +10,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import select
 from flask_migrate import Migrate ,upgrade
+from dotenv import load_dotenv
+import os
 
 
 app = Flask(__name__)
 api = Api(app)
 jwt =JWTManager(app)
 db = SQLAlchemy()
-app.config['SQLALCHEMY_DATABASE_URI'] =  'postgresql://postgres:zmhqsLQymtAYubCvGhYCTvCIZMUrjPxB@shinkansen.proxy.rlwy.net:17087/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] =  os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+load_dotenv()
 
 
 migrate = Migrate(app, db)
